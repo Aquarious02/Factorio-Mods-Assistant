@@ -8,3 +8,5 @@ build/ModsAssistant/PKG-00.pkg
 build/ModsAssistant/ModsAssistant.exe.manifest
 build/ModsAssistant/base_library.zip
 ModsAssistant.spec
+dist/ModsAssistant.exe
+SandBox.py
