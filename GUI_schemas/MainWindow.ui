@@ -6,318 +6,199 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>395</width>
+    <height>783</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>30</y>
-      <width>271</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-    <property name="gridStyle">
-     <enum>Qt::SolidLine</enum>
-    </property>
-    <property name="sortingEnabled">
-     <bool>true</bool>
-    </property>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>200</number>
-    </attribute>
-    <attribute name="horizontalHeaderStretchLastSection">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="verticalHeaderCascadingSectionResizes">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderStretchLastSection">
-     <bool>false</bool>
-    </attribute>
-    <row>
-     <property name="text">
-      <string>1</string>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string>Вкл/выкл | Название</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignCenter</set>
-     </property>
-    </column>
-    <item row="0" column="0">
-     <property name="text">
-      <string>Base</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignCenter</set>
-     </property>
-     <property name="checkState">
-      <enum>Checked</enum>
-     </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_search">
+      <item>
+       <widget class="QLineEdit" name="lineEdit_search">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="baseSize">
+         <size>
+          <width>130</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Поиск...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_search_counter">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_match_case">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>35</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Georgia</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="statusTip">
+         <string>Учитывать регистр</string>
+        </property>
+        <property name="text">
+         <string>Аа</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_search">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>10</y>
-      <width>185</width>
-      <height>95</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="statusTip">
-     <string>Поиск по названием полей ввода. Поиск успешен только при полном совпадении</string>
-    </property>
-    <property name="title">
-     <string>Поиск</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLineEdit" name="lineEdit_search">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>130</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="baseSize">
-            <size>
-             <width>130</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>Поиск...</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_search">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>25</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="statusTip">
-            <string>Выполнить поиск</string>
-           </property>
-           <property name="text">
-            <string>🔍</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item alignment="Qt::AlignLeft">
-        <widget class="QPushButton" name="pushButton_match_case">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>25</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>35</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Georgia</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="statusTip">
-          <string>Учитывать регистр</string>
-         </property>
-         <property name="text">
-          <string>Аа</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <property name="default">
-          <bool>true</bool>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_search_counter">
-         <property name="maximumSize">
-          <size>
-           <width>45</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_previous_search_result">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="statusTip">
-          <string>Предыдущий результат</string>
-         </property>
-         <property name="text">
-          <string>▲</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_next_search_result">
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="statusTip">
-          <string>Следующий результат</string>
-         </property>
-         <property name="text">
-          <string>▼</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>0</y>
-      <width>166</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_actions">
-     <item>
-      <widget class="QCheckBox" name="checkBox_choose_all">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_actions">
+      <item>
+       <widget class="QCheckBox" name="checkBox_choose_all">
+        <property name="text">
+         <string>Выбрать все</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_enable">
+        <property name="text">
+         <string>Вкл/выкл</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>200</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <row>
        <property name="text">
-        <string>Выбрать все</string>
+        <string>1</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_enable">
+      </row>
+      <column>
        <property name="text">
-        <string>Вкл/выкл</string>
+        <string>Вкл/выкл | Название</string>
        </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+      </column>
+      <item row="0" column="0">
+       <property name="text">
+        <string>Base</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignCenter</set>
+       </property>
+       <property name="checkState">
+        <enum>Checked</enum>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsEnabled</set>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>395</width>
      <height>21</height>
     </rect>
    </property>

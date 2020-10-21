@@ -12,9 +12,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.mods_handler = ModsHandler()
-
         self.mods_in_table = {}
+
+        self.mods_handler = ModsHandler()
+        self.searcher = Searcher(self)
 
         #
         # menu
@@ -27,22 +28,40 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.checkBox_choose_all.clicked.connect(self.choose_all)
         self.ui.checkBox_enable.clicked.connect(self.change_state)
 
-    def update_table(self):
+    def update_table(self, from_open: bool = True):
+        """
+        Updates table with mods
+        :param from_open: recreates mods (don't take into account previous state)
+        """
         self.ui.tableWidget.setRowCount(len(self.mods_in_table))
         for mode_index, mode in enumerate(self.mods_in_table.items()):
             name, state = mode
-            mode_item = QtWidgets.QTableWidgetItem()
-            mode_item.setText(name)
-            # mode_name_item.setTextAlignment(QtCore.Qt.AlignCenter)
-            mode_item.setTextAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
 
-            if state:
-                mode_item.setCheckState(QtCore.Qt.Checked)
+            # If item doesn't exist
+            item_from_table = self.ui.tableWidget.item(mode_index, 0)
+            if item_from_table is None:
+                mode_item = QtWidgets.QTableWidgetItem()
+                mode_item.setTextAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignVCenter)
+
+                if name == 'base':
+                    mode_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsEnabled)
             else:
-                mode_item.setCheckState(QtCore.Qt.Unchecked)
+                mode_item = item_from_table
 
-            # if mode['name'] == 'base':
-            #     mode_item.setVisible(False)
+            mode_item.setText(name)
+
+            self.ui.tableWidget.setRowHidden(mode_index, False)  # Because of searcher hiding
+
+            if from_open:
+                if state:
+                    mode_item.setCheckState(QtCore.Qt.Checked)
+                else:
+                    mode_item.setCheckState(QtCore.Qt.Unchecked)
+            else:
+                if state or mode_item.checkState():
+                    mode_item.setCheckState(QtCore.Qt.Checked)
+                else:
+                    mode_item.setCheckState(QtCore.Qt.Unchecked)
 
             self.ui.tableWidget.setItem(mode_index, 0, mode_item)
 
@@ -119,6 +138,96 @@ class MainWindow(QtWidgets.QMainWindow):
         application.show()
 
         sys.exit(app.exec())
+
+
+class Searcher:
+    """
+    More information here: https://www.learnpyqt.com/courses/adanced-ui-features/widget-search-bar/
+    """
+    def __init__(self, MainGUI):
+        """
+        :param MainGUI: GUI instance to operate
+        """
+        self.outer_GUI = MainGUI
+
+        #
+        # Objects connecting
+        #
+        self.search_line_edit = self.outer_GUI.ui.lineEdit_search
+        self.search_counter = self.outer_GUI.ui.label_search_counter
+        self.match_case_button = self.outer_GUI.ui.pushButton_match_case
+        self.completer = QtWidgets.QCompleter(self.mods_names)
+
+        self.to_match_case = False
+        self.result_index = 0
+        self.match_case()  # to set CaseSensivity
+
+        #
+        # Actions Connecting
+        #
+        self.match_case_button.clicked.connect(self.match_case)
+        self.search_line_edit.textChanged.connect(self.search)
+        self.search_line_edit.setCompleter(self.completer)
+
+    def search(self):
+        """
+        Main node of Searcher.
+        """
+        search_pattern = self.search_line_edit.text()
+        self.outer_GUI.update_table(from_open=False)
+        if search_pattern != '':
+            if not self.to_match_case:
+                search_pattern = search_pattern.lower()
+
+            hidden_mods = len(self.outer_GUI.mods_in_table.keys())
+
+            for mod_index, mod_name in enumerate(self.outer_GUI.mods_in_table.keys()):
+                if not self.to_match_case:
+                    mod_name = mod_name.lower()
+
+                if search_pattern not in mod_name:
+                    self.outer_GUI.ui.tableWidget.setRowHidden(mod_index, True)
+                    hidden_mods -= 1
+                    self.search_counter.setText(str(hidden_mods))
+
+        else:
+            self.reset()
+
+    def match_case(self):
+        """
+        Changes match_case parameter if pushButton was pressed
+        """
+        if self.match_case_button.isChecked():
+            self.to_match_case = True
+            self.completer.setCaseSensitivity(QtCore.Qt.CaseSensitive)
+        else:
+            self.to_match_case = False
+            self.completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        self.search()
+
+    @property
+    def mods_names(self):
+        """
+        Collect names of mods
+        :return:
+        """
+        return self.outer_GUI.mods_handler.mods.keys()
+
+    def update_completer(self):
+        """
+        Updated completer if mods were changed
+        :return:
+        """
+        self.search_line_edit.setCompleter(None)
+        self.completer = QtWidgets.QCompleter(list(set(self.mods_names)))
+        self.match_case()  # to set CaseSensivity
+        self.search_line_edit.setCompleter(self.completer)
+
+    def reset(self):
+        """
+        Resets state of searcher widget
+        """
+        self.search_counter.setText('')
 
 
 def excepthook(exc_type, exc_value, exc_tb):
